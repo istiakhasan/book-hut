@@ -3,6 +3,8 @@ import Login from "../page/Login";
 import SignUp from "../page/SignUp";
 import MainLayout from "../layout/MainlLayout";
 import Home from "../page/Home";
+import AllBooks from "../page/AllBooks";
+import AddNewBooks from "../page/AddNewBooks";
 
 const routes = createBrowserRouter([
   {
@@ -12,6 +14,15 @@ const routes = createBrowserRouter([
         {
             element:<Home />,
             index:true
+        },
+        {
+          element:<AllBooks />,
+          path:"all-books"
+
+        },
+        {
+          element:<AddNewBooks />,
+          path:"add-new"
         }
     ]
 

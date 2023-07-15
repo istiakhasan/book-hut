@@ -6,29 +6,50 @@ import { setUser } from "../../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const { user,isLoading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const handleLogOut = () => {
     signOut(auth).then(() => dispatch(setUser(null)));
   };
+  if(isLoading){
+    return
+  }
   const routeLink = (
     <>
-      <li >
-        <a className="hover:text-white">All Books</a>
+      <li>
+        <Link
+          style={{ color: "white" }}
+          to={"/all-books"}
+          className="hover:text-white"
+        >
+          All Books
+        </Link>
       </li>
       {!user?.email ? (
         <>
           <li>
-            <Link to={"/login"} className="hover:text-white">Sign In</Link>
+            <Link to={"/login"} className="hover:text-white">
+              Sign In
+            </Link>
           </li>
           <li>
-          <Link to={"/signup"} className="hover:text-white">Sign Up</Link>
+            <Link to={"/signup"} className="hover:text-white">
+              Sign Up
+            </Link>
           </li>
         </>
       ) : (
-        <li onClick={handleLogOut}>
-          <a className="hover:text-white">Logout</a>
-        </li>
+        <>
+         <li>
+            <Link style={{ color: "white" }} to={"/add-new"} className="hover:text-white">
+              Add New
+            </Link>
+          </li>
+          <li onClick={handleLogOut}>
+            <a className="hover:text-white">Logout</a>
+          </li>
+         
+        </>
       )}
     </>
   );

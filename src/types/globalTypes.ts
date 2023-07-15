@@ -4,5 +4,7 @@ export interface IBook{
     genre:string;
     image:string;
     description:string;
-    publicationDate:string
+    publicationDate:string;
+    review?:number,
+    author:string
 }

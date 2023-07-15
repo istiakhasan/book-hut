@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../redux/hook";
 import { createUser } from "../redux/features/user/userSlice";
@@ -13,7 +14,6 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormInputs>();
   const onSubmit = async (data: SignUpFormInputs) => {
     await dispatch(createUser({email:data.email,password:data.password}));
-    console.log(data);
    
   };
 
