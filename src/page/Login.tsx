@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../redux/hook";
 import { loginUser } from "../redux/features/user/userSlice";

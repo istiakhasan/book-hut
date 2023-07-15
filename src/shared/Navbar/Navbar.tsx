@@ -1,33 +1,33 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { auth } from "../../lib/firebase";
 import { setUser } from "../../redux/features/user/userSlice";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const handleLogOut = () => {
-    signOut(auth).then(() => {
-      dispatch(setUser(null));
-    });
+    signOut(auth).then(() => dispatch(setUser(null)));
   };
   const routeLink = (
     <>
-      <li>
-        <a>All Books</a>
+      <li >
+        <a className="hover:text-white">All Books</a>
       </li>
       {!user?.email ? (
         <>
           <li>
-            <a>Sign In</a>
+            <Link to={"/login"} className="hover:text-white">Sign In</Link>
           </li>
           <li>
-            <a>Sign Up</a>
+          <Link to={"/signup"} className="hover:text-white">Sign Up</Link>
           </li>
         </>
       ) : (
         <li onClick={handleLogOut}>
-          <a>Logout</a>
+          <a className="hover:text-white">Logout</a>
         </li>
       )}
     </>
@@ -54,7 +54,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52"
+            className="menu menu-sm hover:text-white dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52"
           >
             {routeLink}
           </ul>
