@@ -3,8 +3,11 @@ import { Fragment, useState } from "react";
 import { IBook } from "../types/globalTypes";
 import BooksCard from "../components/BooksCard";
 import Banner from "../components/Banner";
+import { useGetBooksQuery } from "../redux/features/books/booksApi";
 
 const Home = () => {
+  const { data } = useGetBooksQuery(undefined);
+  console.log(data,"log data");
   const [books, setBooks] = useState<IBook[]>([
     {
       id: 1,
