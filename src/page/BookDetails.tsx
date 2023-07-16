@@ -48,6 +48,8 @@ const BookDetails = () => {
       data: inputValue,
     });
     await refetch();
+    toast.success('Review successfully..')
+    e.target.reset()
   };
   if (deleError) {
     toast.error(deleteErrorMessage as string);
