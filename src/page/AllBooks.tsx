@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // import { books } from "../assets/data";
 import BooksCard from "../components/BooksCard";
-import { FormEvent } from "react";
 import YearDropdown from "../components/YearDropdown";
 import { useGetBooksQuery } from "../redux/features/books/booksApi";
 import { IBook } from "../types/globalTypes";
@@ -28,7 +27,7 @@ const AllBooks = () => {
     books = data?.data;
   }
 
-  const handleYearChange = (event: FormEvent<HTMLFormElement>) => {
+  const handleYearChange = (event:any) => {
     const selectedYear = event?.target?.value ;
     setPerameters({ ...paraMeters, publicationDate: selectedYear });
   };
@@ -71,7 +70,7 @@ const AllBooks = () => {
       </div>
       <div className="col-span-3">
         <div className="grid lg:grid-cols-3 gap-10 mx-3 lg:mx-20">
-          {books?.map((book, i) => (
+          {books?.map((book) => (
             <BooksCard book={book} />
           ))}
         </div>

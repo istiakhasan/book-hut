@@ -7,18 +7,18 @@ import moment from "moment";
 import { toast } from "react-toastify";
 
 const AddNewBooks = () => {
-  const [createBook, { isLoading, isError, isSuccess, error }] =
+  const [createBook, { isLoading, isError, isSuccess }] =
     useCreateBookMutation();
-  const { register, handleSubmit,reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { user } = useAppSelector((state) => state.user);
   if (isLoading) {
     return;
   }
   if (isError) {
-    error?.data?.errorMessages?.map((item) => toast.error(item?.message));
+    toast.error("Something went wrong");
   }
-  if(isSuccess){
-    toast.success('Book created successfully')
+  if (isSuccess) {
+    toast.success("Book created successfully");
   }
   const onSubmit = async (data: Partial<IBook>) => {
     const publicationDate = moment(data.publicationDate).format("L");
@@ -26,7 +26,7 @@ const AddNewBooks = () => {
     await createBook({
       data: { ...data, email: user.email, publicationDate: publicationDate },
     });
-    reset()
+    reset();
   };
 
   return (

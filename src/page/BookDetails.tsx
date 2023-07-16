@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -8,8 +10,6 @@ import {
   useSingleBookQuery,
 } from "../redux/features/books/booksApi";
 import { IBook } from "../types/globalTypes";
-import RatingPng from "../assets/star.png";
-import { FormEvent } from "react";
 import { useAppSelector } from "../redux/hook";
 import { toast } from "react-toastify";
 const BookDetails = () => {
@@ -29,7 +29,7 @@ const BookDetails = () => {
       isSuccess: deleteIsSuccess,
     },
   ] = useDeleteBookMutation();
-  const [postReview, { isLoading: loding, isError, isSuccess, error }] =
+  const [postReview] =
     useCreateReviewMutation();
   if (isLoading) {
     return;
@@ -40,7 +40,7 @@ const BookDetails = () => {
     book = data?.data as IBook;
   }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e:any)=> {
     e.preventDefault();
     const inputValue = e.target?.review?.value;
     await postReview({
@@ -49,7 +49,7 @@ const BookDetails = () => {
     });
     await refetch();
     toast.success('Review successfully..')
-    e.target.reset()
+   
   };
   if (deleError) {
     toast.error(deleteErrorMessage as string);
@@ -61,7 +61,8 @@ const BookDetails = () => {
   const handleDeleteBook = async () => {
     await deleBook({ id: book!.id });
   };
-
+  const myObject: any = window; // Assuming 'my_modal_1' exists on the window object
+  const myModal = myObject.my_modal_1;
   return (
     <div>
       {/* modal */}
@@ -116,7 +117,7 @@ const BookDetails = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => window.my_modal_1.showModal()}
+                  onClick={() => myModal.showModal()}
                   // onClick={handleDeleteBook}
                   // disabled={user?.email !== book?.email}
                   className="btn btn-sm btn-error"

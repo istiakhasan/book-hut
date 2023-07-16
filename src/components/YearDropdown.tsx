@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 const YearDropdown = ({ startYear, endYear, onChange }) => {
   const years = [];
   for (let year = startYear; year > endYear; year--) {

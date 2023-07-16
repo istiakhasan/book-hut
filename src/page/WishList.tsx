@@ -4,11 +4,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useGetWishListQuery } from "../redux/features/books/booksApi";
 import { useAppSelector } from "../redux/hook";
-import {toast} from 'react-toastify'
 
 const WishList = () => {
   const { user } = useAppSelector((state) => state.user);
-  const { data, isError, isLoading, error } = useGetWishListQuery({
+  const { data, isLoading } = useGetWishListQuery({
     email: user.email,
     status: 1,
   },{
@@ -18,9 +17,7 @@ const WishList = () => {
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-  if (isError) {
-    error?.data?.errorMessages?.map((item:any) => toast.error(item?.message as string));
-  }
+
 
   return (
     <div className="p-10">

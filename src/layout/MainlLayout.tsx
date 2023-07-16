@@ -1,6 +1,6 @@
 import MenuBar from "../shared/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Footer from "../components/Footer";
 
 const MainLayout = () => {

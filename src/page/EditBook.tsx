@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   useSingleBookQuery,
   useUpdateBookMutation,
@@ -14,9 +14,9 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "../redux/hook";
 
 const EditBook = () => {
-  const [updateBook, { isLoading: loding, isError, isSuccess, error }] =
+  const [updateBook, { isLoading: loding, isError, isSuccess }] =
     useUpdateBookMutation();
-    const {isLoading:userLoading}=useAppSelector(state=>state.user)
+  const { isLoading: userLoading } = useAppSelector((state) => state.user);
   const { id } = useParams();
 
   const {
@@ -27,21 +27,9 @@ const EditBook = () => {
     refetchOnMountOrArgChange: true,
     pollingInterval: 20000,
     refetchOnFocus: true,
-    refetchOnReconnect:true
+    refetchOnReconnect: true,
   });
-  const { register, handleSubmit } = useForm({
-    // defaultValues: {
-    //   title: bookData?.data?.title,
-    //   author: bookData?.data?.author,
-    //   genre: bookData?.data?.genre,
-    //   image: bookData?.data?.image,
-    //   description: bookData?.data?.description,
-    //   publicationDate: moment(
-    //     bookData?.data?.publicationDate,
-    //     "MM-DD-YYYY"
-    //   ).format("YYYY-MM-D"),
-    // },
-  });
+  const { register, handleSubmit } = useForm({});
   if (isLoading || loding || userLoading) {
     return <h1>Loading...</h1>;
   }
@@ -49,7 +37,7 @@ const EditBook = () => {
     toast.success("Updated SuccessFully");
   }
   if (isError) {
-    error?.data?.errorMessages?.map((item) => toast.error(item?.message));
+    toast.error("Something went wrong");
   }
   const onSubmit = async (data: Partial<IBook>): Promise<void> => {
     console.log(data);

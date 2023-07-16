@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useNavigate } from "react-router-dom";
 import { IBook } from "../types/globalTypes";
-import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { addToWishList } from "../redux/features/books/bookSlice";
+import { useAppSelector } from "../redux/hook";
+
 import { useCreateWishListMutation } from "../redux/features/books/booksApi";
 import { toast } from 'react-toastify';
 
@@ -10,7 +11,7 @@ interface ProductCardProps {
 }
 
 const BooksCard: React.FC<ProductCardProps> = ({ book }) => {
-  const [createWishList,{isSuccess,isError,error}] = useCreateWishListMutation();
+  const [createWishList,{isSuccess,error}] = useCreateWishListMutation();
   const { user } = useAppSelector((state) => state.user);
   // const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const BooksCard: React.FC<ProductCardProps> = ({ book }) => {
 
           <div>
             <select
-              onChange={(e) => handleChange(e.target.value, book.id)}
+              onChange={async(e) =>await handleChange(e.target.value, book.id)}
               className="select select-info w-full max-w-xs"
             >
               <option disabled selected>
