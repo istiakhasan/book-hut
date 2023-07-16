@@ -2,11 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // import { books } from "../assets/data";
 import BooksCard from "../components/BooksCard";
+import { FormEvent } from "react";
+import YearDropdown from "../components/YearDropdown";
 import { useGetBooksQuery } from "../redux/features/books/booksApi";
 import { IBook } from "../types/globalTypes";
 import { useState } from "react";
 const AllBooks = () => {
-  const [paraMeters, setPerameters] = useState<{searchTerm?:string,author?:string,publicationDate?:string} | undefined>(undefined);
+  const [paraMeters, setPerameters] = useState<
+    | { searchTerm?: string; genre?: string; publicationDate?: string }
+    | undefined
+  >(undefined);
   const { data, isLoading, error } = useGetBooksQuery(paraMeters);
 
   if (isLoading) {
@@ -19,6 +24,11 @@ const AllBooks = () => {
   if (data?.success) {
     books = data?.data;
   }
+
+  const handleYearChange = (event: FormEvent<HTMLFormElement>) => {
+    const selectedYear = event?.target?.value;
+    setPerameters({ ...paraMeters, publicationDate: selectedYear });
+  };
   return (
     <div className="grid grid-cols-4  mt-10">
       <div className="px-5">
@@ -34,29 +44,34 @@ const AllBooks = () => {
           />
 
           <p className="text-md font-semibold text-gray-500 mt-5 text-center underline">
-            Filter by  Author
+            Filter by Author
           </p>
 
           <input
             type="text"
             onChange={(e) =>
-              setPerameters({ ...paraMeters, author: e.target.value })
+              setPerameters({ ...paraMeters, genre: e.target.value })
             }
             placeholder="Search"
             className="input input-sm input-bordered w-full  max-w-xs"
           />
-           <p className="text-md font-semibold text-gray-500 mt-5 text-center underline">
-            Filter by  Year
+          <p className="text-md font-semibold text-gray-500 mt-5 text-center underline">
+            Filter by Year
           </p>
-          <input
+          {/* <input
             type="text"
             onChange={(e) =>
               setPerameters({ ...paraMeters, publicationDate: e.target.value })
             }
             placeholder="Search"
-            className="input input-sm input-bordered w-full  max-w-xs"
+            className="input input-sm input-bordered w-full  max-w-xs mb-3"
+          /> */}
+
+          <YearDropdown
+            startYear={2023}
+            endYear={1800}
+            onChange={handleYearChange}
           />
-         
         </div>
       </div>
       <div className="col-span-3">

@@ -7,7 +7,7 @@ const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: (queryParameters) => {
-        const query=  Pick(queryParameters,["searchTerm","author","publicationDate"])
+        const query=  Pick(queryParameters,["searchTerm","genre","publicationDate"])
         return {
           url: `books`,
           params: query,
@@ -25,16 +25,21 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["comments"],
     }),
-    getComment: builder.query({
-      query: (id: number) => `/comment/${id}`,
-      providesTags: ["comments"],
+    createReview: builder.mutation({
+      query: ({id,data}) => ({
+        url: `/books/${id as string}`,
+        method: "PATCH",
+        body: {data:data},
+      }),
+      invalidatesTags: ["comments"],
     }),
+  
   }),
 });
 
 export const {
-  useGetCommentQuery,
   useGetBooksQuery,
   useCreateBookMutation,
   useSingleBookQuery,
+  useCreateReviewMutation
 } = productApi;

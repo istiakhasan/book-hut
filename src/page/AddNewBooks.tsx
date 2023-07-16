@@ -3,17 +3,18 @@ import { useForm } from "react-hook-form";
 import { useAppSelector } from "../redux/hook";
 import { useCreateBookMutation } from "../redux/features/books/booksApi";
 import { IBook } from "../types/globalTypes";
+import moment from "moment";
 
 const AddNewBooks = () => {
-  const [createBook, { isLoading, isError, isSuccess,error }] =
+  const [createBook, { isLoading, isError, isSuccess, error }] =
     useCreateBookMutation();
-    console.log(error,"error");
   const { register, handleSubmit } = useForm();
   const { user } = useAppSelector((state) => state.user);
   const onSubmit = async (data: Partial<IBook>) => {
-    console.log({ ...data, email: user.email });
+    const publicationDate =moment(data.publicationDate).format('L')
+   
     await createBook({
-      data: {...data,email:user.email},
+      data: { ...data, email: user.email,publicationDate:publicationDate },
     });
   };
 
