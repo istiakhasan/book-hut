@@ -5,6 +5,7 @@ export interface IBook{
     image:string;
     description:string;
     publicationDate:string;
-    review?:number,
-    author:string
+    review?:string[],
+    author:string,
+    email:string
 }

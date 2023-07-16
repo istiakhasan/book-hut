@@ -10,7 +10,7 @@ const BooksCard: React.FC<ProductCardProps> = ({ book }) => {
   return (
     <div className="h-full relative ">
       <div className="max-w-sm rounded overflow-hidden shadow-lg h-full pb-10">
-        <img className="w-full" src={book.image} alt="Mountain" />
+        <img className="w-full h-[250px] object-fill" src={book.image} alt="Mountain" />
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{book.title}</div>
           <p className="text-gray-700 text-base">{book.description}</p>

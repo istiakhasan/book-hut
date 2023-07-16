@@ -1,12 +1,13 @@
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes/route";
+import { useAppDispatch } from "./redux/hook";
+import { useEffect } from "react";
+import { setLoading, setUser } from "./redux/features/user/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./lib/firebase";
 
-import './App.css'
-import {RouterProvider} from 'react-router-dom'
-import routes from './routes/route'
-import { useAppDispatch } from './redux/hook';
-import {useEffect} from 'react'
-import { setLoading, setUser } from './redux/features/user/userSlice';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './lib/firebase';
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -23,9 +24,9 @@ function App() {
 
   return (
     <>
-       <RouterProvider router={routes}/>
+      <RouterProvider router={routes} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

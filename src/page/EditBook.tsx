@@ -1,32 +1,63 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import {  useParams } from "react-router-dom";
+import {
+  useSingleBookQuery,
+  useUpdateBookMutation,
+} from "../redux/features/books/booksApi";
 import { useForm } from "react-hook-form";
-import { useAppSelector } from "../redux/hook";
-import { useCreateBookMutation } from "../redux/features/books/booksApi";
-import { IBook } from "../types/globalTypes";
 import moment from "moment";
+import { IBook } from "../types/globalTypes";
 import { toast } from "react-toastify";
 
-const AddNewBooks = () => {
-  const [createBook, { isLoading, isError, isSuccess, error }] =
-    useCreateBookMutation();
-  const { register, handleSubmit,reset } = useForm();
-  const { user } = useAppSelector((state) => state.user);
-  if (isLoading) {
+const EditBook = () => {
+  const [updateBook, { isLoading: loding, isError, isSuccess, error }] =
+    useUpdateBookMutation();
+  const { id } = useParams();
+
+  const {
+    data: bookData,
+    isLoading,
+    refetch,
+  } = useSingleBookQuery(id as string, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 20000,
+    refetchOnFocus: true,
+  });
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: bookData?.data?.title,
+      author: bookData?.data?.author,
+      genre: bookData?.data?.genre,
+      image: bookData?.data?.image,
+      description: bookData?.data?.description,
+      publicationDate: moment(
+        bookData?.data?.publicationDate,
+        "MM-DD-YYYY"
+      ).format("YYYY-MM-D"),
+    },
+  });
+  if (isLoading || loding) {
     return;
+  }
+  if (isSuccess) {
+    toast.success("Updated SuccessFully");
   }
   if (isError) {
     error?.data?.errorMessages?.map((item) => toast.error(item?.message));
   }
-  if(isSuccess){
-    toast.success('Book created successfully')
-  }
-  const onSubmit = async (data: Partial<IBook>) => {
-    const publicationDate = moment(data.publicationDate).format("L");
-
-    await createBook({
-      data: { ...data, email: user.email, publicationDate: publicationDate },
+  const onSubmit = async (data: Partial<IBook>): Promise<void> => {
+    await updateBook({
+      id: id,
+      data: {
+        ...data,
+        publicationDate: moment(data.publicationDate).format("L"),
+      },
     });
-    reset()
+
+    await refetch();
   };
 
   return (
@@ -63,7 +94,7 @@ const AddNewBooks = () => {
             <input
               type="date"
               {...register("publicationDate", { required: true })}
-              placeholder="password"
+              placeholder="Publication date"
               className="pass-input px-5"
             />
           </div>
@@ -92,4 +123,4 @@ const AddNewBooks = () => {
   );
 };
 
-export default AddNewBooks;
+export default EditBook;

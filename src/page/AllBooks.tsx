@@ -12,7 +12,10 @@ const AllBooks = () => {
     | { searchTerm?: string; genre?: string; publicationDate?: string }
     | undefined
   >(undefined);
-  const { data, isLoading, error } = useGetBooksQuery(paraMeters);
+  const { data, isLoading, error } = useGetBooksQuery(paraMeters,{
+    refetchOnFocus:true,
+    refetchOnMountOrArgChange:true,
+  });
 
   if (isLoading) {
     return;
@@ -26,7 +29,7 @@ const AllBooks = () => {
   }
 
   const handleYearChange = (event: FormEvent<HTMLFormElement>) => {
-    const selectedYear = event?.target?.value;
+    const selectedYear = event?.target?.value ;
     setPerameters({ ...paraMeters, publicationDate: selectedYear });
   };
   return (
@@ -43,8 +46,8 @@ const AllBooks = () => {
             className="input input-sm input-bordered w-full  max-w-xs"
           />
 
-          <p className="text-md font-semibold text-gray-500 mt-5 text-center underline">
-            Filter by Author
+          <p className="text-md font-semibold text-gray-500 mt-5  underline">
+            Filter by Genre
           </p>
 
           <input
@@ -55,7 +58,7 @@ const AllBooks = () => {
             placeholder="Search"
             className="input input-sm input-bordered w-full  max-w-xs"
           />
-          <p className="text-md font-semibold text-gray-500 mt-5 text-center underline">
+          <p className="text-md font-semibold text-gray-500 mt-5  underline">
             Filter by Year
           </p>
           {/* <input

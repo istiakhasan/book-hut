@@ -80,7 +80,7 @@ const Navbar = () => {
             {routeLink}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Car Fair</a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">Car Fair</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{routeLink}</ul>

@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { loginUser } from "../redux/features/user/userSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 interface LoginFormInputs {
   email: string;
@@ -10,12 +15,25 @@ interface LoginFormInputs {
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const { user, isLoading, isError, error } = useAppSelector(
+    (state) => state.user
+  );
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<LoginFormInputs>();
   const onSubmit = async (data: LoginFormInputs) => {
     await dispatch(loginUser({ email: data.email, password: data.password }));
-    // console.log(data);
   };
 
+  useEffect(() => {
+    if (user.email && !isLoading) {
+      navigate(from as string, { replace: true });
+    }
+  }, [user.email]);
+  if (isError) {
+    toast.error(error);
+  }
   return (
     <div className="login_wraper">
       <form className="login-div" onSubmit={handleSubmit(onSubmit)}>
