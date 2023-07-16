@@ -7,7 +7,11 @@ const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: (queryParameters) => {
-        const query=  Pick(queryParameters,["searchTerm","genre","publicationDate"])
+        const query = Pick(queryParameters, [
+          "searchTerm",
+          "genre",
+          "publicationDate",
+        ]);
         return {
           url: `books`,
           params: query,
@@ -15,10 +19,10 @@ const productApi = api.injectEndpoints({
       },
     }),
     singleBook: builder.query({
-      query: (id: string | undefined ) => `/books/${id as string}`,
+      query: (id: string | undefined) => `/books/${id as string}`,
     }),
     createBook: builder.mutation({
-      query: ({data}) => ({
+      query: ({ data }) => ({
         url: `/books`,
         method: "POST",
         body: data as IBook,
@@ -26,37 +30,50 @@ const productApi = api.injectEndpoints({
       invalidatesTags: ["comments"],
     }),
     createReview: builder.mutation({
-      query: ({id,data}) => ({
+      query: ({ id, data }) => ({
         url: `/books/review/${id as string}`,
         method: "PATCH",
-        body: {data:data},
+        body: { data: data },
       }),
       invalidatesTags: ["comments"],
     }),
     createWishList: builder.mutation({
-      query: ({data}) => ({
+      query: ({ data }) => ({
         url: `/wishlist`,
         method: "PUT",
-        body: {data:data},
+        body: { data: data },
       }),
       invalidatesTags: ["comments"],
     }),
+    // getWishList: builder.mutation({
+    //   query: ({data}) => ({
+    //     url: `/wishlist`,
+    //     method: "GET",
+    //     params:data
+    //   }),
+    //   invalidatesTags: ["comments"],
+    // }),
+    getWishList: builder.query({
+      query: (queryParameters) => ({
+        url: `/wishlist`,
+        params: queryParameters,
+      }),
+    }),
     updateBook: builder.mutation({
-      query: ({id,data}) => ({
+      query: ({ id, data }) => ({
         url: `/books/${id as string}`,
         method: "PATCH",
-        body: {data:data},
+        body: { data: data },
       }),
       invalidatesTags: ["comments"],
     }),
     deleteBook: builder.mutation({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `/books/${id as string}`,
-        method: "DELETE"
+        method: "DELETE",
       }),
       invalidatesTags: ["comments"],
     }),
-  
   }),
 });
 
@@ -67,5 +84,6 @@ export const {
   useCreateReviewMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
-  useCreateWishListMutation
+  useCreateWishListMutation,
+  useGetWishListQuery
 } = productApi;

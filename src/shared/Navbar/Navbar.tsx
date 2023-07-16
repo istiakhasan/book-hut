@@ -6,13 +6,13 @@ import { setUser } from "../../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { user,isLoading } = useAppSelector((state) => state.user);
+  const { user, isLoading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const handleLogOut = () => {
     signOut(auth).then(() => dispatch(setUser(null)));
   };
-  if(isLoading){
-    return
+  if (isLoading) {
+    return;
   }
   const routeLink = (
     <>
@@ -40,20 +40,27 @@ const Navbar = () => {
         </>
       ) : (
         <>
-         <li>
-            <Link style={{ color: "white" }} to={"/add-new"} className="hover:text-white">
+          <li>
+            <Link
+              style={{ color: "white" }}
+              to={"/add-new"}
+              className="hover:text-white"
+            >
               Add New
             </Link>
           </li>
-         <li>
-            <Link style={{ color: "white" }} to={"/add-new"} className="hover:text-white">
+          <li>
+            <Link
+              style={{ color: "white" }}
+              to={"/wishlist"}
+              className="hover:text-white"
+            >
               Wish List
             </Link>
           </li>
           <li onClick={handleLogOut}>
             <a className="hover:text-white">Logout</a>
           </li>
-         
         </>
       )}
     </>
@@ -85,7 +92,9 @@ const Navbar = () => {
             {routeLink}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost normal-case text-xl">Car Fair</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          Car Fair
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{routeLink}</ul>
