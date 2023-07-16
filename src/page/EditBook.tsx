@@ -11,10 +11,12 @@ import { useForm } from "react-hook-form";
 import moment from "moment";
 import { IBook } from "../types/globalTypes";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../redux/hook";
 
 const EditBook = () => {
   const [updateBook, { isLoading: loding, isError, isSuccess, error }] =
     useUpdateBookMutation();
+    const {isLoading:userLoading}=useAppSelector(state=>state.user)
   const { id } = useParams();
 
   const {
@@ -25,22 +27,23 @@ const EditBook = () => {
     refetchOnMountOrArgChange: true,
     pollingInterval: 20000,
     refetchOnFocus: true,
+    refetchOnReconnect:true
   });
   const { register, handleSubmit } = useForm({
-    defaultValues: {
-      title: bookData?.data?.title,
-      author: bookData?.data?.author,
-      genre: bookData?.data?.genre,
-      image: bookData?.data?.image,
-      description: bookData?.data?.description,
-      publicationDate: moment(
-        bookData?.data?.publicationDate,
-        "MM-DD-YYYY"
-      ).format("YYYY-MM-D"),
-    },
+    // defaultValues: {
+    //   title: bookData?.data?.title,
+    //   author: bookData?.data?.author,
+    //   genre: bookData?.data?.genre,
+    //   image: bookData?.data?.image,
+    //   description: bookData?.data?.description,
+    //   publicationDate: moment(
+    //     bookData?.data?.publicationDate,
+    //     "MM-DD-YYYY"
+    //   ).format("YYYY-MM-D"),
+    // },
   });
-  if (isLoading || loding) {
-    return;
+  if (isLoading || loding || userLoading) {
+    return <h1>Loading...</h1>;
   }
   if (isSuccess) {
     toast.success("Updated SuccessFully");
@@ -49,6 +52,7 @@ const EditBook = () => {
     error?.data?.errorMessages?.map((item) => toast.error(item?.message));
   }
   const onSubmit = async (data: Partial<IBook>): Promise<void> => {
+    console.log(data);
     await updateBook({
       id: id,
       data: {
@@ -96,8 +100,11 @@ const EditBook = () => {
           <div className="password">
             <input
               type="date"
-              defaultValue={bookData?.data?.publicationDate}
-              {...register("publicationDate", { required: true })}
+              defaultValue={moment(
+                bookData?.data?.publicationDate,
+                "MM-DD-YYYY"
+              ).format("YYYY-MM-D")}
+              {...register("publicationDate")}
               placeholder="Publication date"
               className="pass-input px-5"
             />

@@ -33,7 +33,7 @@ const AllBooks = () => {
     setPerameters({ ...paraMeters, publicationDate: selectedYear });
   };
   return (
-    <div className="grid grid-cols-4  mt-10">
+    <div className="lg:grid md:grid-cols-2 lg:grid-cols-4  mt-10">
       <div className="px-5">
         <div className="card bg-base-100 shadow-xl p-5">
           <p className="text-md font-semibold text-gray-500">Search Books...</p>
@@ -70,7 +70,7 @@ const AllBooks = () => {
         </div>
       </div>
       <div className="col-span-3">
-        <div className="grid grid-cols-3 gap-10 mx-20">
+        <div className="grid lg:grid-cols-3 gap-10 mx-3 lg:mx-20">
           {books?.map((book, i) => (
             <BooksCard book={book} />
           ))}

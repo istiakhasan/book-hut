@@ -54,21 +54,37 @@ const BookDetails = () => {
   }
   if (deleteIsSuccess) {
     toast.success("Book deleted successfully");
-    navigate('/all-books')
+    navigate("/all-books");
   }
   const handleDeleteBook = async () => {
     await deleBook({ id: book!.id });
-
   };
 
   return (
     <div>
+      {/* modal */}
+
+      <dialog id="my_modal_1" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="font-bold text-lg">Alert!</h3>
+          <p className="py-4">Are you sure want to delete this book?</p>
+          <div className="modal-action">
+            <button
+              onClick={handleDeleteBook}
+              className="btn btn-error text-white btn-xs"
+            >
+              Delete
+            </button>
+            <button className="btn btn-xs btn-primary">Close</button>
+          </div>
+        </form>
+      </dialog>
       <div className="hero min-h-screen bg-base-200">
-        <div className="flex flex-row-reverse">
-          <div>
+        <div className="flex flex-row-reverse gap-10">
+          <div className="">
             <img
               src={book?.image}
-              className="w-[500px] h-[400px] mt-10 rounded-lg shadow-2xl"
+              className="w-[500px] h-[400px] object-fill mt-10 rounded-lg shadow-2xl"
             />
           </div>
           <div>
@@ -82,23 +98,25 @@ const BookDetails = () => {
               <strong>Publication Date:</strong>
               {book?.publicationDate}
             </p>
-            <p className="flex gap-2 my-5">
-              {[...Array(book?.review).keys()].map(() => (
-                <img className="w-[20px] h-[20px]" src={RatingPng} alt="" />
-              ))}
-            </p>
+
             {true && (
               <>
+                {user?.email !== book?.email && (
+                  <small className="block text-red-600 font-semibold">
+                    Only you can delete or edit your own book
+                  </small>
+                )}
                 <button
-                  onClick={() =>
-                    navigate(`/edit-book/${id as string}`)
-                  }
-                  className="btn btn-sm btn-primary mr-3"
+                  onClick={() => navigate(`/edit-book/${id as string}`)}
+                  className="btn btn-sm btn-primary mr-3 my-4"
+                  disabled={user?.email !== book?.email}
                 >
                   Edit
                 </button>
                 <button
-                  onClick={handleDeleteBook}
+                  onClick={() => window.my_modal_1.showModal()}
+                  // onClick={handleDeleteBook}
+                  // disabled={user?.email !== book?.email}
                   className="btn btn-sm btn-error"
                 >
                   Delete
@@ -130,7 +148,10 @@ const BookDetails = () => {
               </p>
               {book?.review?.map((item: string) => (
                 <>
-                  <p className="my-5"><strong>**</strong>{item}</p>
+                  <p className="my-5">
+                    <strong>**</strong>
+                    {item}
+                  </p>
                   <hr />
                 </>
               ))}

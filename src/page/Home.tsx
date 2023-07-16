@@ -29,7 +29,7 @@ const Home = () => {
         Recently Added Books Collecton
       </h1>
 
-      <div className="grid grid-cols-4 gap-8 mx-20">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:mx-20 mx-2">
         {books?.slice(0,10)?.map((book: IBook, i: number) => (
           <Fragment key={i}>
             <BooksCard book={book} />

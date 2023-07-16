@@ -60,6 +60,7 @@ const Login = () => {
         <button type="submit" className="signin-button bg-red-500">
           login
         </button>
+        {isError&&<small className="block text-red-500 font-semibold my-3">{error}</small>}
       </form>
     </div>
   );
