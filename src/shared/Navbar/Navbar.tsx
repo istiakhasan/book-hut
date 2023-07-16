@@ -58,6 +58,24 @@ const Navbar = () => {
               Wish List
             </Link>
           </li>
+          <li>
+            <Link
+              style={{ color: "white" }}
+              to={"/curent-reading"}
+              className="hover:text-white"
+            >
+              Currently Reading
+            </Link>
+          </li>
+          <li>
+            <Link
+              style={{ color: "white" }}
+              to={"/finish-reading"}
+              className="hover:text-white"
+            >
+              Finish Reading
+            </Link>
+          </li>
           <li onClick={handleLogOut}>
             <a className="hover:text-white">Logout</a>
           </li>

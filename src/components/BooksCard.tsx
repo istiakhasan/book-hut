@@ -16,6 +16,9 @@ const BooksCard: React.FC<ProductCardProps> = ({ book }) => {
   const navigate = useNavigate();
 
   const handleChange = async (status: string, bookId: string) => {
+    if(!user.email){
+      return toast.error("Please log in then add your wish list ")
+    }
     const data = {
       email: user.email,
       status: status,

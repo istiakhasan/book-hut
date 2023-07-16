@@ -1,11 +1,11 @@
 import { useGetWishListQuery } from "../redux/features/books/booksApi";
 import { useAppSelector } from "../redux/hook";
 
-const WishList = () => {
+const FinishReading = () => {
   const { user } = useAppSelector((state) => state.user);
   const { data, isError, isLoading, error } = useGetWishListQuery({
     email: user.email,
-    status: 1,
+    status: 3,
   },{
     refetchOnFocus:true,
     refetchOnMountOrArgChange:true
@@ -19,7 +19,7 @@ const WishList = () => {
 
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold underline text-gray-600 text-center mb-5">White List </h1>
+      <h1 className="text-3xl font-bold underline text-gray-600 text-center mb-5">Finish Reading </h1>
       <div className="grid grid-cols-4 gap-10">
         {data?.data?.map((item) => (
        <div className="card  bg-base-100 shadow-xl">
@@ -35,4 +35,4 @@ const WishList = () => {
   );
 };
 
-export default WishList;
+export default FinishReading;
