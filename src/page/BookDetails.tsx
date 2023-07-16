@@ -80,15 +80,15 @@ const BookDetails = () => {
         </form>
       </dialog>
       <div className="hero min-h-screen bg-base-200">
-        <div className="flex flex-row-reverse gap-10">
-          <div className="">
+        <div className="lg:flex flex-row-reverse gap-10">
+          <div className="mb-4">
             <img
               src={book?.image}
-              className="w-[500px] h-[400px] object-fill mt-10 rounded-lg shadow-2xl"
+              className="lg:w-[500px] mx-auto h-[400px] object-fill mt-10 rounded-lg shadow-2xl"
             />
           </div>
           <div>
-            <h1 className="text-5xl font-bold">{book?.title}</h1>
+            <h1 className="lgtext-3xl font-bold">{book?.title}</h1>
             <p className="py-6 max-w-[500px]">{book?.description}</p>
             <p>
               <strong>Author:</strong>
