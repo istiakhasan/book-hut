@@ -25,7 +25,7 @@ const WishList = () => {
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold underline text-gray-600 text-center mb-5">White List </h1>
-      <div className="grid grid-cols-4 gap-10">
+      <div className="grid lg:grid-cols-4 gap-10 mx-3">
         {data?.data?.map((item:any) => (
        <div className="card  bg-base-100 shadow-xl">
        <div className="card-body">
