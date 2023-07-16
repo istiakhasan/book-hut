@@ -119,7 +119,7 @@ const BookDetails = () => {
                 <button
                   onClick={() => myModal.showModal()}
                   // onClick={handleDeleteBook}
-                  // disabled={user?.email !== book?.email}
+                  disabled={user?.email !== book?.email}
                   className="btn btn-sm btn-error"
                 >
                   Delete
