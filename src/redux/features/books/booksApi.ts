@@ -33,6 +33,14 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["comments"],
     }),
+    createWishList: builder.mutation({
+      query: ({data}) => ({
+        url: `/wishlist`,
+        method: "PUT",
+        body: {data:data},
+      }),
+      invalidatesTags: ["comments"],
+    }),
     updateBook: builder.mutation({
       query: ({id,data}) => ({
         url: `/books/${id as string}`,
@@ -58,5 +66,6 @@ export const {
   useSingleBookQuery,
   useCreateReviewMutation,
   useUpdateBookMutation,
-  useDeleteBookMutation
+  useDeleteBookMutation,
+  useCreateWishListMutation
 } = productApi;

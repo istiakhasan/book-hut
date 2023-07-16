@@ -91,7 +91,7 @@ const BookDetails = () => {
               <>
                 <button
                   onClick={() =>
-                    navigate("/edit-book", { state: { id: book?.id } })
+                    navigate(`/edit-book/${id as string}`)
                   }
                   className="btn btn-sm btn-primary mr-3"
                 >

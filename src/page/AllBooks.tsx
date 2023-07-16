@@ -61,14 +61,6 @@ const AllBooks = () => {
           <p className="text-md font-semibold text-gray-500 mt-5  underline">
             Filter by Year
           </p>
-          {/* <input
-            type="text"
-            onChange={(e) =>
-              setPerameters({ ...paraMeters, publicationDate: e.target.value })
-            }
-            placeholder="Search"
-            className="input input-sm input-bordered w-full  max-w-xs mb-3"
-          /> */}
 
           <YearDropdown
             startYear={2023}

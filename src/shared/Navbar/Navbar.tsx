@@ -45,6 +45,11 @@ const Navbar = () => {
               Add New
             </Link>
           </li>
+         <li>
+            <Link style={{ color: "white" }} to={"/add-new"} className="hover:text-white">
+              Wish List
+            </Link>
+          </li>
           <li onClick={handleLogOut}>
             <a className="hover:text-white">Logout</a>
           </li>

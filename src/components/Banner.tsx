@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Banner = () => {
     return (
       <div>
@@ -5,7 +7,7 @@ const Banner = () => {
           className="hero min-h-screen"
           style={{
             backgroundImage:
-              "url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)",
+              "url(https://www.shift4shop.com/2015/images/build-bookstore-ecommerce/build-ecommerce-banner.png)",
           }}
         >
           <div className="hero-overlay bg-opacity-60"></div>
@@ -17,7 +19,7 @@ const Banner = () => {
                 excepturi exercitationem quasi. In deleniti eaque aut repudiandae
                 et a id nisi.
               </p>
-              <button className="btn btn-primary">Get Started</button>
+              <Link to="/login" className="btn btn-primary">Get Started</Link>
             </div>
           </div>
         </div>

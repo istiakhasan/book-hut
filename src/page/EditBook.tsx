@@ -69,6 +69,7 @@ const EditBook = () => {
           <div className="username">
             <input
               type="text"
+              defaultValue={bookData?.data?.title}
               {...register("title", { required: true })}
               className="user-input px-6"
               placeholder="Title"
@@ -77,6 +78,7 @@ const EditBook = () => {
           <div className="username">
             <input
               type="text"
+              defaultValue={bookData?.data?.author}
               {...register("author", { required: true })}
               className="user-input px-6"
               placeholder="author"
@@ -85,6 +87,7 @@ const EditBook = () => {
           <div className="password">
             <input
               type="text"
+              defaultValue={bookData?.data?.genre}
               {...register("genre", { required: true })}
               placeholder="Genre"
               className="pass-input px-5"
@@ -93,6 +96,7 @@ const EditBook = () => {
           <div className="password">
             <input
               type="date"
+              defaultValue={bookData?.data?.publicationDate}
               {...register("publicationDate", { required: true })}
               placeholder="Publication date"
               className="pass-input px-5"
@@ -101,6 +105,7 @@ const EditBook = () => {
           <div className="password">
             <input
               type="text"
+              defaultValue={bookData?.data?.image}
               {...register("image", { required: true })}
               placeholder="Image url"
               className="pass-input px-5"
@@ -109,6 +114,7 @@ const EditBook = () => {
           <div className="password">
             <input
               type="text"
+              defaultValue={bookData?.data?.description}
               {...register("description", { required: true })}
               placeholder="description"
               className="pass-input px-5"
