@@ -5,6 +5,7 @@ import MainLayout from "../layout/MainlLayout";
 import Home from "../page/Home";
 import AllBooks from "../page/AllBooks";
 import AddNewBooks from "../page/AddNewBooks";
+import BookDetails from "../page/BookDetails";
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
         {
           element:<AddNewBooks />,
           path:"add-new"
+        },
+        {
+          element:<BookDetails />,
+          path:"/book/:id"
         }
     ]
 
